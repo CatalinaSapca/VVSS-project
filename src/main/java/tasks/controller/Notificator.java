@@ -10,8 +10,8 @@ import java.util.Date;
 
 public class Notificator extends Thread {
 
-    private static final int millisecondsInSec = 1000;
-    private static final int secondsInMin = 60;
+    private static final int MILLISECONDS_IN_SEC = 1000;
+    private static final int SECONDS_IN_MIN = 60;
 
     private static final Logger log = Logger.getLogger(Notificator.class.getName());
 
@@ -38,10 +38,8 @@ public class Notificator extends Thread {
                         }
                     }
                     else {
-                        if (!t.isRepeated()){
-                            if (getTimeInMinutes(currentDate) == getTimeInMinutes(t.getTime())){
+                        if (!t.isRepeated() && getTimeInMinutes(currentDate) == getTimeInMinutes(t.getTime())){
                                 showNotification(t);
-                            }
                         }
 
                     }
@@ -49,7 +47,7 @@ public class Notificator extends Thread {
 
             }
             try {
-                Thread.sleep(millisecondsInSec*secondsInMin);
+                Thread.sleep(MILLISECONDS_IN_SEC * SECONDS_IN_MIN);
 
             } catch (InterruptedException e) {
                 log.error("thread interrupted exception");
@@ -64,6 +62,6 @@ public class Notificator extends Thread {
         });
     }
     private static long getTimeInMinutes(Date date){
-        return date.getTime()/millisecondsInSec/secondsInMin;
+        return date.getTime()/ MILLISECONDS_IN_SEC / SECONDS_IN_MIN;
     }
 }
